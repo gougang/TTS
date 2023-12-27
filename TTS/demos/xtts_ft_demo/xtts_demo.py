@@ -33,7 +33,7 @@ def load_model(xtts_checkpoint, xtts_config, xtts_vocab):
     config.load_json(xtts_config)
     XTTS_MODEL = Xtts.init_from_config(config)
     print("Loading XTTS model! ")
-    XTTS_MODEL.load_checkpoint(config, speaker_file_path='/Users/galen/git/hugginface/XTTS-v2/speakers_xtts.pth', checkpoint_path=xtts_checkpoint, vocab_path=xtts_vocab, use_deepspeed=False)
+    XTTS_MODEL.load_checkpoint(config, speaker_file_path='/root/model/XTTS-v2/speakers_xtts.pth', checkpoint_path=xtts_checkpoint, vocab_path=xtts_vocab, use_deepspeed=False)
     if torch.cuda.is_available():
         XTTS_MODEL.cuda()
 
