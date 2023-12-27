@@ -5,6 +5,7 @@ import pandas
 from faster_whisper import WhisperModel
 from glob import glob
 
+from faster_whisper.transcribe import Word
 from tqdm import tqdm
 
 import torch
@@ -53,7 +54,8 @@ def format_audio_list(audio_files, target_language="en", out_path=None, buffer=0
     device = "cuda" if torch.cuda.is_available() else "cpu" 
 
     print("Loading Whisper Model!")
-    asr_model = WhisperModel("large-v2", device=device, compute_type="float16")
+    # asr_model = WhisperModel("/Users/galen/git/hugginface/whisper-large-v2", device=device, compute_type="float32")
+    asr_model = WhisperModel("large-v2", device=device, compute_type="float32")
 
     metadata = {"audio_file": [], "text": [], "speaker_name": []}
 
@@ -79,12 +81,17 @@ def format_audio_list(audio_files, target_language="en", out_path=None, buffer=0
         first_word = True
         # added all segments words in a unique list
         words_list = []
-        for _, segment in enumerate(segments):
+        for segment in segments:
             words = list(segment.words)
+            last_words = words.pop()
+            # last_words.word = last_words.word + "!"
+            my_word = Word(last_words.start, last_words.end, last_words.word + "!", last_words.probability)
+            words.append(my_word)
             words_list.extend(words)
 
         # process each word
         for word_idx, word in enumerate(words_list):
+            print('the word is:', word.word)
             if first_word:
                 sentence_start = word.start
                 # If it is the first sentence, add buffer or get the begining of the file
@@ -102,7 +109,8 @@ def format_audio_list(audio_files, target_language="en", out_path=None, buffer=0
                 sentence += word.word
 
             if word.word[-1] in ["!", ".", "?"]:
-                sentence = sentence[1:]
+                print('sentence is:', sentence)
+                sentence = sentence[0:]
                 # Expand number and abbreviations plus normalization
                 sentence = multilingual_cleaners(sentence, target_language)
                 audio_file_name, _ = os.path.splitext(os.path.basename(audio_path))

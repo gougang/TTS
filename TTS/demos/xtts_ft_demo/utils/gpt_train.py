@@ -43,14 +43,18 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     CHECKPOINTS_OUT_PATH = os.path.join(OUT_PATH, "XTTS_v2.0_original_model_files/")
     os.makedirs(CHECKPOINTS_OUT_PATH, exist_ok=True)
 
+    MODEL_LOCAL_BASE_PATH = "/Users/galen/git/hugginface/XTTS-v2/"
 
     # DVAE files
     DVAE_CHECKPOINT_LINK = "https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/dvae.pth"
     MEL_NORM_LINK = "https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/mel_stats.pth"
 
     # Set the path to the downloaded files
-    DVAE_CHECKPOINT = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(DVAE_CHECKPOINT_LINK))
-    MEL_NORM_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(MEL_NORM_LINK))
+    # DVAE_CHECKPOINT = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(DVAE_CHECKPOINT_LINK))
+    # MEL_NORM_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(MEL_NORM_LINK))
+
+    DVAE_CHECKPOINT = MODEL_LOCAL_BASE_PATH + "dvae.pth"
+    MEL_NORM_FILE = MODEL_LOCAL_BASE_PATH + "mel_stats.pth"
 
     # download DVAE files if needed
     if not os.path.isfile(DVAE_CHECKPOINT) or not os.path.isfile(MEL_NORM_FILE):
@@ -64,10 +68,12 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     XTTS_CONFIG_LINK = "https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/config.json"
 
     # XTTS transfer learning parameters: You we need to provide the paths of XTTS model checkpoint that you want to do the fine tuning.
-    TOKENIZER_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(TOKENIZER_FILE_LINK))  # vocab.json file
-    XTTS_CHECKPOINT = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(XTTS_CHECKPOINT_LINK))  # model.pth file
-    XTTS_CONFIG_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(XTTS_CONFIG_LINK))  # config.json file
-
+    # TOKENIZER_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(TOKENIZER_FILE_LINK))  # vocab.json file
+    # XTTS_CHECKPOINT = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(XTTS_CHECKPOINT_LINK))  # model.pth file
+    # XTTS_CONFIG_FILE = os.path.join(CHECKPOINTS_OUT_PATH, os.path.basename(XTTS_CONFIG_LINK))  # config.json file
+    TOKENIZER_FILE = MODEL_LOCAL_BASE_PATH + "vocab.json"  # vocab.json file
+    XTTS_CHECKPOINT = MODEL_LOCAL_BASE_PATH + "model.pth" # model.pth file
+    XTTS_CONFIG_FILE = MODEL_LOCAL_BASE_PATH + "config.json"  # config.json file
     # download XTTS v2.0 files if needed
     if not os.path.isfile(TOKENIZER_FILE) or not os.path.isfile(XTTS_CHECKPOINT):
         print(" > Downloading XTTS v2.0 files!")
