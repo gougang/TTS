@@ -6,6 +6,7 @@ import tempfile
 import gradio as gr
 import librosa.display
 import numpy as np
+from datetime import datetime
 
 import os
 import torch
@@ -108,6 +109,11 @@ def read_logs():
 
 if __name__ == "__main__":
 
+    # 获取当前日期和时间
+    current_datetime = datetime.now()
+    # 格式化日期时间为字符串
+    formatted_datetime = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
+    
     parser = argparse.ArgumentParser(
         description="""XTTS fine-tuning demo\n\n"""
         """
@@ -126,7 +132,7 @@ if __name__ == "__main__":
         "--out_path",
         type=str,
         help="Output path (where data and checkpoints will be saved) Default: /tmp/xtts_ft/",
-        default="/tmp/xtts_ft/",
+        default="/root/xtts_ft/"+formatted_datetime,
     )
 
     parser.add_argument(
@@ -173,7 +179,7 @@ if __name__ == "__main__":
             )
             lang = gr.Dropdown(
                 label="Dataset Language",
-                value="en",
+                value="zh",
                 choices=[
                     "en",
                     "es",
@@ -208,6 +214,28 @@ if __name__ == "__main__":
                 clear_gpu_cache()
                 out_path = os.path.join(out_path, "dataset")
                 os.makedirs(out_path, exist_ok=True)
+                if audio_path is None:
+                    audio_path = [
+                    "/root/static/10_10_chenghong_00009_(Vocals)_(Vocals).mp3",
+                    "/root/static/12_12_chenghong_00011_(Vocals)_(Vocals).mp3",
+                    "/root/static/13_13_chenghong_00012_(Vocals)_(Vocals).mp3",
+                    "/root/static/14_14_chenghong_00013_(Vocals)_(Vocals).mp3",
+                    "/root/static/15_15_chenghong_00014_(Vocals)_(Vocals).mp3",
+                    "/root/static/16_16_chenghong_00015_(Vocals)_(Vocals).mp3",
+                    "/root/static/19_19_chenghong_00018_(Vocals)_(Vocals).mp3",
+                    "/root/static/20_20_chenghong_00019_(Vocals)_(Vocals).mp3",
+                    "/root/static/21_21_chenghong_00020_(Vocals)_(Vocals).mp3",
+                    "/root/static/22_22_chenghong_00021_(Vocals)_(Vocals).mp3",
+                    "/root/static/24_24_chenghong_00023_(Vocals)_(Vocals).mp3",
+                    "/root/static/25_25_chenghong_00024_(Vocals)_(Vocals).mp3",
+                    "/root/static/27_27_chenghong_00026_(Vocals)_(Vocals).mp3",
+                    "/root/static/2_2_chenghong_00001_(Vocals)_(Vocals).mp3",
+                    "/root/static/4_4_chenghong_00003_(Vocals)_(Vocals).mp3",
+                    "/root/static/5_5_chenghong_00004_(Vocals)_(Vocals).mp3",
+                    "/root/static/7_7_chenghong_00006_(Vocals)_(Vocals).mp3",
+                    "/root/static/8_8_chenghong_00007_(Vocals)_(Vocals).mp3",
+                    "/root/static/9_9_chenghong_00008_(Vocals)_(Vocals).mp3"
+                    ]
                 if audio_path is None:
                     return "You should provide one or multiple audio files! If you provided it, probably the upload of the files is not finished yet!", "", ""
                 else:
