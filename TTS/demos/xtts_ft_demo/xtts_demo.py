@@ -18,7 +18,7 @@ from TTS.demos.xtts_ft_demo.utils.gpt_train import train_gpt
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
 
-
+# export PYTHONPATH=/root/github/TTS:$PYTHONPATH
 def clear_gpu_cache():
     # clear the GPU cache
     if torch.cuda.is_available():
@@ -216,25 +216,30 @@ if __name__ == "__main__":
                 os.makedirs(out_path, exist_ok=True)
                 if audio_path is None:
                     audio_path = [
-                    "/root/static/10_10_chenghong_00009_(Vocals)_(Vocals).mp3",
-                    "/root/static/12_12_chenghong_00011_(Vocals)_(Vocals).mp3",
-                    "/root/static/13_13_chenghong_00012_(Vocals)_(Vocals).mp3",
-                    "/root/static/14_14_chenghong_00013_(Vocals)_(Vocals).mp3",
-                    "/root/static/15_15_chenghong_00014_(Vocals)_(Vocals).mp3",
-                    "/root/static/16_16_chenghong_00015_(Vocals)_(Vocals).mp3",
-                    "/root/static/19_19_chenghong_00018_(Vocals)_(Vocals).mp3",
-                    "/root/static/20_20_chenghong_00019_(Vocals)_(Vocals).mp3",
-                    "/root/static/21_21_chenghong_00020_(Vocals)_(Vocals).mp3",
-                    "/root/static/22_22_chenghong_00021_(Vocals)_(Vocals).mp3",
-                    "/root/static/24_24_chenghong_00023_(Vocals)_(Vocals).mp3",
-                    "/root/static/25_25_chenghong_00024_(Vocals)_(Vocals).mp3",
-                    "/root/static/27_27_chenghong_00026_(Vocals)_(Vocals).mp3",
-                    "/root/static/2_2_chenghong_00001_(Vocals)_(Vocals).mp3",
-                    "/root/static/4_4_chenghong_00003_(Vocals)_(Vocals).mp3",
-                    "/root/static/5_5_chenghong_00004_(Vocals)_(Vocals).mp3",
-                    "/root/static/7_7_chenghong_00006_(Vocals)_(Vocals).mp3",
-                    "/root/static/8_8_chenghong_00007_(Vocals)_(Vocals).mp3",
-                    "/root/static/9_9_chenghong_00008_(Vocals)_(Vocals).mp3"
+                    "/root/static/chenghong/10_10_chenghong_00009_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/11_11_chenghong_00010_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/12_12_chenghong_00011_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/13_13_chenghong_00012_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/14_14_chenghong_00013_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/15_15_chenghong_00014_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/16_16_chenghong_00015_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/17_17_chenghong_00016_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/19_19_chenghong_00018_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/1_1_chenghong_00000_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/20_20_chenghong_00019_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/21_21_chenghong_00020_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/22_22_chenghong_00021_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/24_24_chenghong_00023_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/25_25_chenghong_00024_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/27_27_chenghong_00026_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/2_2_chenghong_00001_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/3_3_chenghong_00002_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/4_4_chenghong_00003_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/5_5_chenghong_00004_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/6_6_chenghong_00005_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/7_7_chenghong_00006_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/8_8_chenghong_00007_(Vocals)_(Vocals).mp3",
+                    "/root/static/chenghong/9_9_chenghong_00008_(Vocals)_(Vocals).mp3"
                     ]
                 if audio_path is None:
                     return "You should provide one or multiple audio files! If you provided it, probably the upload of the files is not finished yet!", "", ""
