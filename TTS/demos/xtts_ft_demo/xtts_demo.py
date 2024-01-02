@@ -357,7 +357,7 @@ if __name__ == "__main__":
                     )
                     tts_language = gr.Dropdown(
                         label="Language",
-                        value="en",
+                        value="zh",
                         choices=[
                             "en",
                             "es",
