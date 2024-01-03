@@ -385,6 +385,7 @@ class ModelManager(object):
         model_item, model_full_name, model, md5sum = self._set_model_item(model_name)
         # set the model specific output path
         output_path = os.path.join(self.output_prefix, model_full_name)
+        print("download path is:", output_path)
         if os.path.exists(output_path):
             if md5sum is not None:
                 md5sum_file = os.path.join(output_path, "hash.md5")

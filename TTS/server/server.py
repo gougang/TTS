@@ -32,17 +32,17 @@ def create_argparser():
     parser.add_argument(
         "--model_name",
         type=str,
-        default="tts_models/en/ljspeech/tacotron2-DDC",
+        default=None,
         help="Name of one of the pre-trained tts models in format <language>/<dataset>/<model_name>",
     )
     parser.add_argument("--vocoder_name", type=str, default=None, help="name of one of the released vocoder models.")
 
     # Args for running custom models
-    parser.add_argument("--config_path", default=None, type=str, help="Path to model config file.")
+    parser.add_argument("--config_path", default='/Users/galen/git/hugginface/XTTS-v2/config.json', type=str, help="Path to model config file.")
     parser.add_argument(
         "--model_path",
         type=str,
-        default=None,
+        default='/Users/galen/git/hugginface/XTTS-v2/',
         help="Path to model file.",
     )
     parser.add_argument(
@@ -51,7 +51,7 @@ def create_argparser():
         help="Path to vocoder model file. If it is not defined, model uses GL as vocoder. Please make sure that you installed vocoder library before (WaveRNN).",
         default=None,
     )
-    parser.add_argument("--vocoder_config_path", type=str, help="Path to vocoder model config file.", default=None)
+    parser.add_argument("--vocoder_config_path", type=str, help="Path to vocoder model config file.", default='/Users/galen/git/hugginface/XTTS-v2/vocab.json')
     parser.add_argument("--speakers_file_path", type=str, help="JSON file for multi-speaker model.", default=None)
     parser.add_argument("--port", type=int, default=5002, help="port to listen on.")
     parser.add_argument("--use_cuda", type=convert_boolean, default=False, help="true to use CUDA.")

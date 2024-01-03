@@ -16,7 +16,7 @@ from TTS.demos.xtts_ft_demo.utils.gpt_train import train_gpt
 
 from TTS.tts.configs.xtts_config import XttsConfig
 from TTS.tts.models.xtts import Xtts
-
+sys.path.append('/Users/galen/git/github/TTS')
 
 def clear_gpu_cache():
     # clear the GPU cache
@@ -173,7 +173,7 @@ if __name__ == "__main__":
             )
             lang = gr.Dropdown(
                 label="Dataset Language",
-                value="en",
+                value="zh",
                 choices=[
                     "en",
                     "es",
@@ -324,7 +324,7 @@ if __name__ == "__main__":
                     )
                     tts_language = gr.Dropdown(
                         label="Language",
-                        value="en",
+                        value="zh",
                         choices=[
                             "en",
                             "es",

@@ -19,6 +19,7 @@ aiohttp>=3.8.1
 packaging>=23.1
 # deps for examples
 flask>=2.0.1
+Werkzeug==2.3.7
 # deps for inference
 pysbd>=0.3.4
 # deps for notebooks
