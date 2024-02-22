@@ -45,6 +45,7 @@ def list_files(basePath, validExts=None, contains=None):
                 audioPath = os.path.join(rootDir, filename)
                 yield audioPath
 
+# 统计用于音频训练的总长度，以及通过WhisperModel把语音转成文字和音频
 def format_audio_list(audio_files, target_language="en", out_path=None, buffer=0.2, eval_percentage=0.15, speaker_name="coqui", gradio_progress=None):
     audio_total_size = 0
     # make sure that ooutput file exists
