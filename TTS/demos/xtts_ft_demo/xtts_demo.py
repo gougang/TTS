@@ -141,7 +141,7 @@ if __name__ == "__main__":
         "--out_path",
         type=str,
         help="Output path (where data and checkpoints will be saved) Default: /tmp/xtts_ft/",
-        default="/root/xtts_ft/" + formatted_datetime,
+        default="/home/hotel/xtts/training-result/" + formatted_datetime,
     )
 
     parser.add_argument(
