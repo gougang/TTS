@@ -43,7 +43,7 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     CHECKPOINTS_OUT_PATH = os.path.join(OUT_PATH, "XTTS_v2.0_original_model_files/")
     os.makedirs(CHECKPOINTS_OUT_PATH, exist_ok=True)
 
-    MODEL_LOCAL_BASE_PATH = "/root/model/XTTS-v2/"
+    MODEL_LOCAL_BASE_PATH = "/home/hotel/xtts/models/XTTS-v2"
 
     # DVAE files
     DVAE_CHECKPOINT_LINK = "https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/dvae.pth"
