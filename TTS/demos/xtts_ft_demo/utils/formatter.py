@@ -92,7 +92,7 @@ def format_audio_list(audio_files, target_language="en", out_path=None, buffer=0
 
         # process each word
         for word_idx, word in enumerate(words_list):
-            print('the word is:', word.word)
+            # print('the word is:', word.word)
             if first_word:
                 sentence_start = word.start
                 # If it is the first sentence, add buffer or get the begining of the file
