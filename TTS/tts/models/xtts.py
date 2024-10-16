@@ -69,9 +69,19 @@ def wav_to_mel_cloning(
 def load_audio(audiopath, sampling_rate):
     # better load setting following: https://github.com/faroit/python_audio_loading_benchmark
 
+    # 这行代码调用torchaudio.load函数从给定的文件路径audiopath中加载音频文件。
+    # audio变量返回一个张量（Tensor），这个张量代表音频数据。音频数据的形状通常是(channels,frames)，其中channels是音频通道数（例如，立体声有2个通道，单声道有1个通道），frames是音频帧的数量。
+    # lsr（加载的采样率）是一个整数，表示音频的采样率，单位是Hz（赫兹），即每秒钟采样的次数。
     # torchaudio should chose proper backend to load audio depending on platform
     audio, lsr = torchaudio.load(audiopath)
 
+    # 这部分代码首先检查audio张量的第一个维度（audio.size(
+    #     0)），也就是通道数是否不等于1。如果不等于1，通常意味着这是一个多通道（如立体声或更多通道）的音频。
+    # torch.mean(audio, dim=0, keepdim=True)
+    # 是用来计算所有通道的均值，从而将音频从多通道转换为单通道。
+    # dim = 0
+    # 参数告诉函数沿着第0维（通道维）进行均值计算。这会将所有通道的对应音频样本的值相加并取平均，用于生成单个通道的输出。
+    # keepdim = True保持输出的维度不变。即使在降维计算后，输出张量仍将保持原始维度的形状。在这种情况下，输出仍然是一个二维张量，但第一个维度（通道数）现在是1。
     # stereo to mono if needed
     if audio.size(0) != 1:
         audio = torch.mean(audio, dim=0, keepdim=True)

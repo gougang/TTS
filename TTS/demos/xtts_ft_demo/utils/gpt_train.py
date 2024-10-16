@@ -23,6 +23,11 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     OPTIMIZER_WD_ONLY_ON_WEIGHTS = True  # for multi-gpu training please make it False
     START_WITH_EVAL = False  # if True it will star with evaluation
     BATCH_SIZE = batch_size  # set here the batch size
+    """
+    gradient accumulation step并不是梯度下降的步长参数，而是一种训练过程中的技巧，用于在处理大批量训练数据时，将梯度累加多个小批量数据的梯度，并在达到一定数量后进行一次梯度更新。这样可以减小显存的压力，同时也可以使得训练过程更加平滑稳定。
+在使用gradient accumulation step技巧时，需要将batch size设置为一个较小的值，然后使用多个小批量数据进行训练。每处理一个小批量数据就进行一次梯度更新，当累加一定数量的小批量数据的梯度之后，再进行一次梯度更新。
+    """
+
     GRAD_ACUMM_STEPS = grad_acumm  # set here the grad accumulation steps
 
 
@@ -45,6 +50,7 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
 
     # 路径后面要加‘/’
     MODEL_LOCAL_BASE_PATH = "/home/hotel/xtts/models/XTTS-v2/"
+    # MODEL_LOCAL_BASE_PATH = "/Users/galen/git/hugginface/XTTS-v2/"
 
     # DVAE files
     DVAE_CHECKPOINT_LINK = "https://coqui.gateway.scarf.sh/hf-coqui/XTTS-v2/main/dvae.pth"
@@ -140,6 +146,9 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
 
     # init the model from config
     model = GPTTrainer.init_from_config(config)
+    # 打印每个参数的名称和形状
+    for name, param in model.named_parameters():
+        print(f"Name: {name}, Shape: {param.shape}, Type: {param.dtype}")
 
     # load training samples
     train_samples, eval_samples = load_tts_samples(
@@ -177,3 +186,15 @@ def train_gpt(language, num_epochs, batch_size, grad_acumm, train_csv, eval_csv,
     gc.collect()
 
     return XTTS_CONFIG_FILE, XTTS_CHECKPOINT, TOKENIZER_FILE, trainer_out_path, speaker_ref
+
+
+
+if __name__ == "__main__":
+    train_gpt("zh",
+              10,
+              4,
+              1,
+              "/Users/galen/git/AI_Data/resources/hushan/metadata_train.csv",
+              "/Users/galen/git/AI_Data/resources/hushan/metadata_eval.csv",
+              output_path="/Users/galen/git/AI_Data/resources/hushan/run",
+              max_audio_length=int(11 * 22050))

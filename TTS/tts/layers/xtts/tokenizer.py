@@ -647,9 +647,14 @@ class VoiceBpeTokenizer:
         lang = lang.split("-")[0]  # remove the region
         self.check_input_length(txt, lang)
         txt = self.preprocess_text(txt, lang)
+        print(txt)
         lang = "zh-cn" if lang == "zh" else lang
         txt = f"[{lang}]{txt}"
         txt = txt.replace(" ", "[SPACE]")
+        print(self.tokenizer.encode(txt).tokens)
+        print(self.tokenizer.encode(txt).ids)
+        self.tokenizer.add_special_tokens(["you3", "wifi"])
+        print(self.tokenizer.encode(txt).ids)
         return self.tokenizer.encode(txt).ids
 
     def decode(self, seq):
@@ -838,6 +843,11 @@ def test_symbols_multilingual():
 
 
 if __name__ == "__main__":
-    test_expand_numbers_multilingual()
-    test_abbreviations_multilingual()
-    test_symbols_multilingual()
+    # test_expand_numbers_multilingual()
+    # test_abbreviations_multilingual()
+    # test_symbols_multilingual()
+    tokenizer = VoiceBpeTokenizer(vocab_file="/Users/galen/git/AI_Data/test_tokenizer/tokenizer1.json")
+    text = "酒店里有wifi和吧台。家人们，现在就给大家带来一个超级惊喜！我们的北京国贸大酒店特别福利套餐已经上线啦！看到屏幕下方的购物车了吗？点击一下就能看到我们的专属优惠详情。记得要抓紧时间哦，因为这次的优惠非常限量，错过了就没有咯！今天预订，除了可以享受到奢华套房的体验，还有难以置信的额外好礼：比如我们专属的VIP接待服务，还有餐厅美食折扣券，让你每一次用餐都成为舌尖上的旅行！家人们，机会难得！在这里，每一次住宿都是一次完美的旅程。北京国贸大酒店，是你商务出行、亲子度假、浪漫之旅的最佳选择！想象一下，晚上在城市夜景中沉醉，白天在五星级的舒适环境中醒来，这将是你一生中难忘的体验。赶紧行动吧，朋友们！只需要轻轻一点，奢华体验即将开启！点击购物车，或拨打我们的预订热线，北京国贸大酒店期待您的光临！"
+    seg_list = jieba.cut(text, cut_all=False)
+    print(list(seg_list))
+    print(tokenizer.encode(text, 'zh'))
