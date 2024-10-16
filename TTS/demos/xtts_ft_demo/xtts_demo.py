@@ -56,7 +56,6 @@ def run_tts(lang, tts_text, speaker_audio_file):
                                                                              max_ref_length=XTTS_MODEL.config.max_ref_len,
                                                                              sound_norm_refs=XTTS_MODEL.config.sound_norm_refs)
     out = XTTS_MODEL.inference(
-        speed=2,
         text=tts_text,
         language=lang,
         gpt_cond_latent=gpt_cond_latent,
